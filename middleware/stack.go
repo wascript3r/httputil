@@ -1,13 +1,10 @@
 package middleware
 
 import (
-	"net/http"
-
 	"github.com/julienschmidt/httprouter"
-	"github.com/wascript3r/httputil"
 )
 
-type Middleware func(http.ResponseWriter, *http.Request, httprouter.Params) (next bool)
+type Middleware func(next httprouter.Handle) httprouter.Handle
 
 type Stack struct {
 	middlewares []Middleware
@@ -21,13 +18,18 @@ func (s *Stack) Use(m Middleware) {
 	s.middlewares = append(s.middlewares, m)
 }
 
-func (s *Stack) Wrap(fn httputil.Handle) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		for _, m := range s.middlewares {
-			if !m(w, r, p) {
-				return
-			}
-			fn(w, r, p)
-		}
+func (s *Stack) Wrap(fn httprouter.Handle) httprouter.Handle {
+	l := len(s.middlewares)
+	if l == 0 {
+		return fn
 	}
+
+	var result httprouter.Handle
+	result = s.middlewares[l-1](fn)
+
+	for i := l - 2; i >= 0; i-- {
+		result = s.middlewares[i](result)
+	}
+
+	return result
 }
