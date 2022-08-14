@@ -86,7 +86,7 @@ func InternalErrorCustom(w http.ResponseWriter, err Error, data interface{}) {
 
 func ServeErr(w http.ResponseWriter, err Error, data interface{}) {
 	SetContentType(w)
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusUnprocessableEntity)
 
 	encodeJson(w, err, data)
 }
