@@ -1,9 +1,6 @@
 # github.com/julienschmidt/httprouter v1.3.0
-## explicit
+## explicit; go 1.7
 github.com/julienschmidt/httprouter
-# github.com/wascript3r/cryptopay v0.0.6
-## explicit
-github.com/wascript3r/cryptopay/pkg/errcode
 # github.com/wascript3r/gostr v0.0.0-20200222144921-e78b2166c216
-## explicit
+## explicit; go 1.13
 github.com/wascript3r/gostr
