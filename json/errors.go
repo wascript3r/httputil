@@ -3,14 +3,8 @@ package json
 import (
 	"errors"
 
-	"github.com/wascript3r/cryptopay/pkg/errcode"
+	"github.com/wascript3r/httputil/json/errcode"
 )
-
-type Error interface {
-	error
-	Name() string
-	Original() error
-}
 
 var (
 	NotFoundError = errcode.New(

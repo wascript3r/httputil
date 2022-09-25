@@ -7,15 +7,24 @@ import (
 	"github.com/wascript3r/gostr"
 )
 
+type Error interface {
+	error
+	Name() string
+	Original() error
+	Data() any
+}
+
 type jsonError struct {
 	Name    string `json:"name"`
 	Message string `json:"message"`
+	Data    any    `json:"data,omitempty"`
 }
 
 func newJsonError(err Error) *jsonError {
 	return &jsonError{
 		Name:    err.Name(),
 		Message: gostr.UpperFirst(err.Error()),
+		Data:    err.Data(),
 	}
 }
 
