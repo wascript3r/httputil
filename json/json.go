@@ -38,76 +38,49 @@ func SetContentType(w http.ResponseWriter) {
 }
 
 func NotFound(w http.ResponseWriter, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusNotFound)
-
-	encodeJson(w, NotFoundError, data)
+	encodeJson(w, http.StatusNotFound, NotFoundError, data)
 }
 
 func NotFoundCustom(w http.ResponseWriter, err Error, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusNotFound)
-
-	encodeJson(w, err, data)
+	encodeJson(w, http.StatusNotFound, err, data)
 }
 
 func Forbidden(w http.ResponseWriter, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusForbidden)
-
-	encodeJson(w, ForbiddenError, data)
+	encodeJson(w, http.StatusForbidden, ForbiddenError, data)
 }
 
 func ForbiddenCustom(w http.ResponseWriter, err Error, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusForbidden)
-
-	encodeJson(w, err, data)
+	encodeJson(w, http.StatusForbidden, err, data)
 }
 
 func BadRequest(w http.ResponseWriter, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusBadRequest)
-
-	encodeJson(w, BadRequestError, data)
+	encodeJson(w, http.StatusBadRequest, BadRequestError, data)
 }
 
 func BadRequestCustom(w http.ResponseWriter, err Error, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusBadRequest)
-
-	encodeJson(w, err, data)
+	encodeJson(w, http.StatusBadRequest, err, data)
 }
 
 func InternalError(w http.ResponseWriter, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusInternalServerError)
-
-	encodeJson(w, InternalServerError, data)
+	encodeJson(w, http.StatusInternalServerError, InternalServerError, data)
 }
 
 func InternalErrorCustom(w http.ResponseWriter, err Error, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusInternalServerError)
-
-	encodeJson(w, err, data)
+	encodeJson(w, http.StatusInternalServerError, err, data)
 }
 
 func ServeErr(w http.ResponseWriter, err Error, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusUnprocessableEntity)
-
-	encodeJson(w, err, data)
+	encodeJson(w, http.StatusUnprocessableEntity, err, data)
 }
 
 func ServeJSON(w http.ResponseWriter, data interface{}) {
-	SetContentType(w)
-	w.WriteHeader(http.StatusOK)
-
-	encodeJson(w, nil, data)
+	encodeJson(w, http.StatusOK, nil, data)
 }
 
-func encodeJson(w http.ResponseWriter, err Error, data interface{}) {
+func encodeJson(w http.ResponseWriter, status int, err Error, data interface{}) {
+	SetContentType(w)
+	w.WriteHeader(status)
+
 	var jsonErr *jsonError
 	if err != nil {
 		jsonErr = newJsonError(err)
