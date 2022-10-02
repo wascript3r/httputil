@@ -14,7 +14,7 @@ func NewCodeMapper() *CodeMapper {
 	}
 }
 
-func (c *CodeMapper) Add(code int, errs ...Error) {
+func (c *CodeMapper) Register(code int, errs ...Error) {
 	for _, err := range errs {
 		name := err.Name()
 		c.errorMap[name] = code
