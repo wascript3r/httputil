@@ -77,6 +77,11 @@ func ServeJSON(w http.ResponseWriter, data interface{}) {
 	encodeJson(w, http.StatusOK, nil, data)
 }
 
+func Status(w http.ResponseWriter, status int) {
+	SetContentType(w)
+	w.WriteHeader(status)
+}
+
 func encodeJson(w http.ResponseWriter, status int, err Error, data interface{}) {
 	SetContentType(w)
 	w.WriteHeader(status)
