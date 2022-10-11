@@ -17,6 +17,11 @@ var (
 		errors.New("forbidden"),
 	)
 
+	UnauthorizedError = errcode.New(
+		"unauthorized",
+		errors.New("unauthorized"),
+	)
+
 	BadRequestError = errcode.New(
 		"bad_request",
 		errors.New("bad request"),

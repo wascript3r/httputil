@@ -53,6 +53,14 @@ func ForbiddenCustom(w http.ResponseWriter, err Error, data interface{}) {
 	encodeJson(w, http.StatusForbidden, err, data)
 }
 
+func Unauthorized(w http.ResponseWriter, data interface{}) {
+	encodeJson(w, http.StatusUnauthorized, UnauthorizedError, data)
+}
+
+func UnauthorizedCustom(w http.ResponseWriter, err Error, data interface{}) {
+	encodeJson(w, http.StatusUnauthorized, err, data)
+}
+
 func BadRequest(w http.ResponseWriter, data interface{}) {
 	encodeJson(w, http.StatusBadRequest, BadRequestError, data)
 }
